@@ -16,14 +16,14 @@ jobs:
           distribution: 'adopt'
 
       - name: Build and Test MSH
-        if: ${{ needs.check_changes.outputs.ms-hospital-management2_changed == 'true' }}
+        if: ${{ needs.check_ms-hospital-management2.changed == 'true' }}
         working-directory: ./ms-hospital-management2
         run: |
           ./mvnw clean package
           ./mvnw test
             
       - name: Publish Docker Image MSH
-        if: ${{ needs.check_changes.outputs.ms-hospital-management2_changed == 'true' }}
+        if: ${{ needs.check_ms-hospital-management2.changed == 'true' }}
         working-directory: ./ms-hospital-management2
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
