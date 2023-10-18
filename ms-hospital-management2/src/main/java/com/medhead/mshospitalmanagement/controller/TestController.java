@@ -13,7 +13,7 @@ public class TestController {
     */
     @GetMapping("/employees")
     public String getEmployees() {
-        return "bonjour les gens";
+        return "bonjour les employés";
     }
     
     /**
