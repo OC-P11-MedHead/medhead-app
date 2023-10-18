@@ -6,7 +6,9 @@ on:
 jobs:
   project-build:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        app: ['ms-hospital-management2', 'ms-hospital-management']
     steps:
       - uses: actions/checkout@v3
 
@@ -17,15 +19,15 @@ jobs:
           distribution: 'adopt'
 
       - name: Build and Test MSH
-          if: contains(github.event.head_commit.modified, 'ms-hospital-management2/')
-          working-directory: ./ms-hospital-management2
+          if: github.event.head_commit.modified | contains('${{ matrix.app }}/')
+          working-directory: ${{ matrix.app }}
           run: |
             ./mvnw clean package
             ./mvnw test
             
       - name: Publish Docker Image MSH
-        if: contains(github.event.head_commit.modified, 'ms-hospital-management2/')
-        working-directory: ./ms-hospital-management2
+        if: github.event.head_commit.modified | contains('${{ matrix.app }}/')
+        working-directory: ${{ matrix.app }}
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
