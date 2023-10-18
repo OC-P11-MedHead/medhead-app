@@ -19,11 +19,11 @@ jobs:
           distribution: 'adopt'
 
       - name: Build and Test MSH
-          if: github.event.head_commit.modified | contains('${{ matrix.app }}/')
-          working-directory: ${{ matrix.app }}
-          run: |
-            ./mvnw clean package
-            ./mvnw test
+        if: github.event.head_commit.modified | contains('${{ matrix.app }}/')
+        working-directory: ${{ matrix.app }}
+        run: |
+          ./mvnw clean package
+          ./mvnw test
             
       - name: Publish Docker Image MSH
         if: github.event.head_commit.modified | contains('${{ matrix.app }}/')
