@@ -1,4 +1,4 @@
-package com.medhead.mshospitalmanagement.controller;
+package com.medhead.mshospitalmanagement.infrastructure;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
