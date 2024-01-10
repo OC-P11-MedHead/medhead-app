@@ -35,7 +35,7 @@ Yoann VALERO
 
 ## Pipeline CI/CD
 
-La pipeline CI/CD mise en place est documentée sous l'onglet [Github Actions](https://github.com/gcarcau/P11_CODE/actions)
+La pipeline CI/CD mise en place est documentée ici : [Github Actions](https://github.com/OC-P11-MedHead/medhead-archi)
 
 ## Lancement du projet
 
