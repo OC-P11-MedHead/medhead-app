@@ -35,7 +35,7 @@ Yoann VALERO
 
 ## Pipeline CI/CD
 
-La pipeline CI/CD mise en place est documentée ici : [CI/CD Documentation](https://github.com/OC-P11-MedHead/medhead-archi#CI/CD)
+La pipeline CI/CD mise en place est documentée ici : [CI/CD Documentation](https://github.com/OC-P11-MedHead/medhead-archi#cicd)
 
 ## Lancement du projet
 
