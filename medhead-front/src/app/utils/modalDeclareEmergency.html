@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>Déclarer une urgence</h2>
+
+<form ([formGroup])="form" (submit)="submit($event)">
+ <mat-dialog-content class="mat-typography"> 
+    <button (click)="getCurrentPos()" mat-raised-button color="primary">Me localiser <i class="bi bi-geo-alt"></i></button>
+
+    <mat-form-field>
+      <mat-label>Lieu de l'incident : (exemple de localisation ou l'urgence a été déclarée) </mat-label>
+    
+      <mat-select formControlName="address" (selectionChange)="changeAddress($event)">
+        <mat-option value="The Mall, London SW1A 2WH, Royaume-Uni">The Mall, London SW1A 2WH, Royaume-Uni</mat-option>
+        <mat-option value="King's Rd, London SW3 5EE, Royaume-Uni">King's Rd, London SW3 5EE, Royaume-Uni</mat-option>
+        <mat-option value="Watford Employment Tribunal, Radius House, 51 Clarendon Rd, Watford WD17 1HP, Royaume-Uni">Watford Employment Tribunal, Radius House, 51 Clarendon Rd, Watford WD17 1HP, Royaume-Uni</mat-option>
+        <mat-option value="Warren Rd, North Somercotes, Louth LN11 7RB, Royaume-Uni">Warren Rd, North Somercotes, Louth LN11 7RB, Royaume-Uni</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="invisible">
+      <mat-label>latitude</mat-label>
+      <input formControlName="lat" matInput>
+    </mat-form-field>
+
+    <mat-form-field class="invisible">
+      <mat-label>longitude</mat-label>
+      <input formControlName="long" matInput>
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-label>Spécialités : </mat-label>
+      <mat-select formControlName="speciality" (selectionChange)="changeSpeciality($event)" >
+        <mat-option *ngFor="let speciality of specialities" [value]="speciality.uuid">{{ speciality.libelle }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-card>
+    <mat-card-content>L'hôpital le plus prôche vous sera attribué en fonction de votre demande (spécialités / lits disponibles)</mat-card-content>
+  </mat-card>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Annuler</button>
+    <button type="submit" mat-raised-button color="warn" [mat-dialog-close]="true" cdkFocusInitial>Déclarer l'urgence</button>
+  </mat-dialog-actions>
+</form>

@@ -1,1 +1,72 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+html, body { 
+    padding:0;
+    margin:0;
+    height: 100%; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+.declareEmergencies {
+    position:fixed;
+    bottom:10%;
+    right:2%;
+}
+
+.btnDeclare {
+    background-color: rgb(180, 40, 40);
+    padding:10px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 2px 1px rgba(0, 0, 0, 0.219);
+    font-size:1rem;
+    color: white;
+    cursor: pointer;
+}
+
+#btnLogout {
+    margin-right:15px;
+}
+
+.btnDeclare:hover, .declareEmergencies:hover {
+    cursor: pointer !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 8px 0;
+}
+
+p {
+    margin: 0;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index:2;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    color: white;
+    font-weight: 600;
+    border-bottom: 1px solid #1976d2ab
+}
+
+.toolbar img {
+    margin: 0 16px;
+}
+
+

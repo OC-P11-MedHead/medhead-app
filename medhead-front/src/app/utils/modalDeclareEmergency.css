@@ -1,0 +1,21 @@
+mat-form-field {
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width:100% !important;
+}
+
+:host {
+    width:50vw !important;
+}
+  
+mat-dialog-content{
+    width: 80vw !important;
+}
+
+.invisible{
+    display: block;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+}

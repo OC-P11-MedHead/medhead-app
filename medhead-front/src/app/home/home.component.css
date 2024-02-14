@@ -1,0 +1,49 @@
+.main {
+    margin:75px 0 0 250px !important;
+}
+
+aside {
+    display:flex;
+    flex-direction: column;
+    margin:0 !important;
+    padding:75px 10px !important;
+    width:15%;
+    position:fixed;
+    top:0%;
+    height:100vh;
+    background-color: rgba(195, 236, 255, 0.377);
+}
+
+aside a {
+    margin:5px !important;
+    padding:10px;
+    text-decoration: none;
+    color: #034f86;
+    font-weight: bold;
+    transition:0.1s ease-in-out;
+    border-radius: 10px;
+}
+
+aside a:hover {
+    background-color:rgba(0, 0, 255, 0.171);
+}
+
+
+mat-dialog-content{
+    width: 100vw !important;
+}
+
+.mat-table {
+    width:600px !important;
+
+}
+
+.mat-mdc-table {
+    max-height: 400px;
+    overflow: auto;
+}
+
+.mat-column-name {
+    height: 100px;
+}
+

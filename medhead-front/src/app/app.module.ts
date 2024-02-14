@@ -5,26 +5,47 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HospitalComponent } from './hospital/hospital.component';
+import { HospitalsComponent } from './hospitals/hospitals.component';
 import { PatientComponent } from './patient/patient.component';
-import { ErmegencyComponent } from './ermegency/ermegency.component';
 import { EmergencyComponent } from './emergency/emergency.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { HttpClientModule } from '@angular/common/http';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import { MessageComponent } from './utils/message/message.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    HospitalComponent,
+    HospitalsComponent,
     PatientComponent,
-    ErmegencyComponent,
-    EmergencyComponent
+    EmergencyComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSlideToggleModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

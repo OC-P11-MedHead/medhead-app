@@ -1,0 +1,18 @@
+#message-flash {
+    position: absolute;
+    top:10%;
+    right:40%;
+    padding:25px;
+    font-size: bold;
+    border-radius: 15px;
+    border: 1px solid rgba(74, 85, 74, 0.11);
+    box-shadow: 4px 2px rgba(0, 0, 0, 0.068);
+}
+
+.success {
+    background-color: rgb(171, 240, 171);
+}
+
+.error {
+    background-color: rgb(238, 172, 172);
+}

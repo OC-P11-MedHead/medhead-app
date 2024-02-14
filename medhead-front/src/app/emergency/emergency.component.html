@@ -1,1 +1,37 @@
-<p>emergency works!</p>
+<aside>
+    <a routerLink="/hospitals">Hôpitaux</a>
+    <a href="#">Patients</a>
+    <a href="/emergencies">Urgences</a>
+  </aside>
+  <div class="main">
+    <h3>Liste des urgences</h3>
+    <div  class="mat-elevation-z8" style="width:80%">
+      <table mat-table [dataSource]="emergencies">
+        <ng-container matColumnDef="speciality">
+          <th mat-header-cell *matHeaderCellDef> Spécialités</th>
+          <!-- <td mat-cell *matCellDef="let element">{{ concatNameSpecialities(element.specialities) }} -->
+          <!-- <td mat-cell *matCellDef="let element">{{ element.speciality }}  </td> -->
+          <td mat-cell *matCellDef="let element">Cardiologie</td>
+        </ng-container>
+        
+        <ng-container matColumnDef="hospitalName">
+          <th mat-header-cell *matHeaderCellDef> Nom de l'hôpital </th>
+          <td mat-cell *matCellDef="let element"> {{element.hospitalName}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="emergencyBedrooms">
+          <th mat-header-cell *matHeaderCellDef> Lits disponibles</th>
+          <!-- <td mat-cell *matCellDef="let element"> {{element.hospitalName}} </td> -->
+          <td mat-cell *matCellDef="let element">44</td>
+        </ng-container>
+  
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+              showFirstLastButtons
+              aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+  </div>

@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
         console.log(this.form.controls['id'], this.form.controls["password"]);
 
         if (this.form.controls['id'].value === "medhead" && this.form.controls['password'].value === "password") {
-            this.router.navigate(['/home'])
+            this.router.navigate(['/hospitals'])
         } else {
             this.error = "Identifiant ou mot de passe incorrect";
         }

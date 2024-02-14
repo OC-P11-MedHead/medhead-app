@@ -1,0 +1,1 @@
+package com.medhead.mshospitalmanagement.infrastructure.repository;

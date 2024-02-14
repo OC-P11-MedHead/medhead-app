@@ -1,1 +1,18 @@
+<div class="toolbar" role="banner">
+    <img width="120" alt="Medhead Logo" src="assets/med-logo.png" />
+    <div class="spacer"></div>
+    <a id="btnLogout" routerLink="/"><i class="bi bi-box-arrow-right"></i> Se déconnecter</a>
+</div>
+
+<aside>
+    <a routerLink="/hospitals">Hôpitaux</a>
+    <a href="#">Patients</a>
+    <a href="#">Urgences</a>
+</aside>
+
+<div class="declareEmergencies" >
+    <button (click)="openDialog()" class="btnDeclare"><i class="bi bi-hospital"></i> Déclarer une urgence</button>
+</div>
+
+<app-message></app-message>
 <router-outlet></router-outlet>
