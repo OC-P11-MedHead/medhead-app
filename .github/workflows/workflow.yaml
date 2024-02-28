@@ -24,9 +24,11 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./medhead-front
+        using: 'node20'
         run: npm install
 
       - name: Run tests
+        using: 'node20'
         run: npm run e2e
 
       - name: Check for changes in ms-hospital-management
