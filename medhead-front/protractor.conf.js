@@ -1,6 +1,6 @@
 exports.config = {
     capabilities: {
-        browserName: 'chrome', // Vous pouvez également utiliser 'firefox', 'safari', etc.
+        browserName: 'chromium', // Vous pouvez également utiliser 'firefox', 'safari', etc.
         chromeOptions: {
             args: ['--no-sandbox', '--disable-gpu'],
         },
