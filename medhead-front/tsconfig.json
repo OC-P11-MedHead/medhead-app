@@ -26,7 +26,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "e2e/e2e.js"  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

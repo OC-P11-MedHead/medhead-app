@@ -7,7 +7,7 @@
     <mat-form-field>
       <mat-label>Lieu de l'incident : (exemple de localisation ou l'urgence a été déclarée) </mat-label>
     
-      <mat-select formControlName="address" (selectionChange)="changeAddress($event)">
+      <mat-select id="select-hospital" formControlName="address" (selectionChange)="changeAddress($event)">
         <mat-option value="The Mall, London SW1A 2WH, Royaume-Uni">The Mall, London SW1A 2WH, Royaume-Uni</mat-option>
         <mat-option value="King's Rd, London SW3 5EE, Royaume-Uni">King's Rd, London SW3 5EE, Royaume-Uni</mat-option>
         <mat-option value="Watford Employment Tribunal, Radius House, 51 Clarendon Rd, Watford WD17 1HP, Royaume-Uni">Watford Employment Tribunal, Radius House, 51 Clarendon Rd, Watford WD17 1HP, Royaume-Uni</mat-option>
@@ -27,7 +27,7 @@
     
     <mat-form-field>
       <mat-label>Spécialités : </mat-label>
-      <mat-select formControlName="speciality" (selectionChange)="changeSpeciality($event)" >
+      <mat-select id="select-speciality" formControlName="speciality" (selectionChange)="changeSpeciality($event)" >
         <mat-option *ngFor="let speciality of specialities" [value]="speciality.uuid">{{ speciality.libelle }}</mat-option>
       </mat-select>
     </mat-form-field>
