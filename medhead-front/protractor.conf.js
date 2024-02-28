@@ -1,4 +1,5 @@
 exports.config = {
+    seleniumAddress: 'http://localhost:4444/wd/hub',
     capabilities: {
         browserName: 'chromium', // Vous pouvez également utiliser 'firefox', 'safari', etc.
         chromeOptions: {

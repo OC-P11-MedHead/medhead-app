@@ -29,6 +29,10 @@ jobs:
         working-directory: ./medhead-front
         run: npm install
 
+      - name: Start Selenium Server
+        working-directory: ./medhead-front
+        run: npm run start-selenium-server
+
       - name: Run tests
         working-directory: ./medhead-front
         run: npm run e2e
