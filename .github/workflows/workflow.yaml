@@ -24,8 +24,8 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-          working-directory: ./medhead-front
-          run: npm install
+        working-directory: ./medhead-front
+        run: npm install
 
       - name: Run tests
           run: npm run e2e
