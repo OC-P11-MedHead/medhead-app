@@ -31,9 +31,8 @@ jobs:
 
       - name: Start Selenium Server
         working-directory: ./medhead-front
-        run: |
-          webdriver-manager update 
-          npm run start-selenium-server
+        run: webdriver-manager update
+        run: npm run start-selenium-server
 
       - name: Run tests
         working-directory: ./medhead-front
