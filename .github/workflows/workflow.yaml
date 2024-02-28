@@ -27,6 +27,7 @@ jobs:
         run: npm install
 
       - name: Run tests
+        working-directory: ./medhead-front
         run: npm run e2e
 
       - name: Check for changes in ms-hospital-management
