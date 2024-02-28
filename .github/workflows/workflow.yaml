@@ -32,7 +32,7 @@ jobs:
 
       - name: Run E2e tests
         working-directory: ./medhead-front/e2e
-        run: node bookBed.js
+        run: protractor protractor.conf.js
 
       - name: Check for changes in ms-hospital-management
         id: check_mshm
