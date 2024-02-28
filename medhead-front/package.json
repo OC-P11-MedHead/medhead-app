@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "start-selenium-server" : "webdriver-manager start",
     "e2e": "protractor protractor.conf.js"
   },
   "private": true,
