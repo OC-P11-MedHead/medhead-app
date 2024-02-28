@@ -28,7 +28,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-          run: npm run e2e
+        run: npm run e2e
 
       - name: Check for changes in ms-hospital-management
         id: check_mshm
