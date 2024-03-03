@@ -133,7 +133,7 @@ jobs:
           mvn spring-boot:run -f ms-emergency-dispatcher &
 
       - name: Wait for Micro-Services to Start
-        run: sleep 30 
+        run: sleep 120
 
       - name: Build Angular App
         working-directory: ./medhead-front
