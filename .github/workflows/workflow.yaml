@@ -131,7 +131,6 @@ jobs:
           mvn spring-boot:run -f ms-hospital-management
           mvn spring-boot:run -f ms-emergency-management
           mvn spring-boot:run -f ms-emergency-dispatcher
-        background: true
 
       - name: Build Angular App
         working-directory: ./medhead-front
