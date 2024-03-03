@@ -128,15 +128,15 @@ jobs:
 
       - name: Start MS-hospital-management
         working-directory: ./ms-hospital-management
-        run: ./mvn spring-boot:run &
+        run: ./mvnw spring-boot:run &
 
       - name: Start MS-emergency-management
         working-directory: ./ms-emergency-management
-        run: ./mvn spring-boot:run &
+        run: ./mvnw spring-boot:run &
 
       - name: Start MS-emergency-management
         working-directory: ./ms-emergency-dispatcher
-        run: ./mvn spring-boot:run &
+        run: ./mvnw spring-boot:run &
 
       - name: Wait for Micro-Services to Start
         run: sleep 120
