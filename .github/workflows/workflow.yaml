@@ -126,18 +126,24 @@ jobs:
           docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
           docker push yvalero/ms-emergency-dispatcher:latest
 
-      - name: Start Micro-services
-        run: |
-          mvn spring-boot:run -f ms-hospital-management &
-          mvn spring-boot:run -f ms-emergency-management &
-          mvn spring-boot:run -f ms-emergency-dispatcher &
+      - name: Start MS-hospital-management
+        working-directory: ./ms-hospital-management
+        run: ./mvn spring-boot:run &
+
+      - name: Start MS-emergency-management
+        working-directory: ./ms-emergency-management
+        run: ./mvn spring-boot:run &
+
+      - name: Start MS-emergency-management
+        working-directory: ./ms-emergency-dispatcher
+        run: ./mvn spring-boot:run &
 
       - name: Wait for Micro-Services to Start
         run: sleep 120
 
       - name: Build Angular App
         working-directory: ./medhead-front
-        run: npm run build
+        run: npm run build 
 
       - name: Run E2E Tests with Xvfb
         working-directory: ./medhead-front/e2e
