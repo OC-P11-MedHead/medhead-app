@@ -29,10 +29,16 @@ jobs:
         working-directory: ./medhead-front
         run: npm install
 
+      - name: Install Xvfb
+        run: sudo apt-get install -y xvfb
 
-      - name: Run E2e tests
+      - name: Run E2E Tests with Xvfb
         working-directory: ./medhead-front/e2e
-        run: npm run e2e
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" node bookBed.js
+
+      # - name: Run E2e tests
+      #   working-directory: ./medhead-front/e2e
+      #   run: npm run e2e
 
       - name: Check for changes in ms-hospital-management
         id: check_mshm
