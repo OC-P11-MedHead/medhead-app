@@ -131,21 +131,21 @@ jobs:
         run: ./mvnw spring-boot:run &
 
       - name: Wait for Micro-Services to Start
-        run: sleep 30
+        run: sleep 70
 
       - name: Start MS-emergency-management
         working-directory: ./ms-emergency-management
         run: ./mvnw spring-boot:run &
 
       - name: Wait for Micro-Services to Start
-        run: sleep 30
+        run: sleep 40
 
-      - name: Start MS-emergency-management
+      - name: Start MS-emergency-dispatcher
         working-directory: ./ms-emergency-dispatcher
         run: ./mvnw spring-boot:run &
 
       - name: Wait for Micro-Services to Start
-        run: sleep 30
+        run: sleep 40
 
       - name: Build Angular App
         working-directory: ./medhead-front
