@@ -129,7 +129,7 @@ jobs:
       - name: Start MS-hospital-management
         working-directory: ./ms-hospital-management
         run: |
-          ./mvnw clean install &
+          ./mvnw clean install
           ./mvnw spring-boot:run &
 
       - name: Wait for Micro-Services to Start
