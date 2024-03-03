@@ -128,9 +128,12 @@ jobs:
 
       - name: Start Micro-services
         run: |
-          mvn spring-boot:run -f ms-hospital-management
-          mvn spring-boot:run -f ms-emergency-management
-          mvn spring-boot:run -f ms-emergency-dispatcher
+          mvn spring-boot:run -f ms-hospital-management &
+          mvn spring-boot:run -f ms-emergency-management &
+          mvn spring-boot:run -f ms-emergency-dispatcher &
+
+      - name: Wait for Micro-Services to Start
+        run: sleep 30 
 
       - name: Build Angular App
         working-directory: ./medhead-front
