@@ -157,6 +157,10 @@ jobs:
     runs-on: ubuntu
     needs: tests
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Publish Docker Image MSMH
         if: ${{ steps.check_mshm.outputs.changed == 'true' }}
         working-directory: ./ms-hospital-management
