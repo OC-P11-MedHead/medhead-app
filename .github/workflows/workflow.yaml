@@ -156,6 +156,7 @@ jobs:
   publish:
     runs-on: ubuntu
     needs: tests
+    timeout-minutes: 1
     steps:
       - uses: actions/checkout@v4
         with:
