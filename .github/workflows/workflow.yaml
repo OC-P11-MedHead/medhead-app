@@ -80,7 +80,7 @@ jobs:
     needs: check-changes  
     steps:
       - name: Build and Test MSHM
-        if: ${{ check-changes.steps.check_mshm.outputs.changed == 'true' }}
+        if: ${{ steps.check_mshm.outputs.changed == 'true' }}
         working-directory: ./ms-hospital-management
         run: |
           ./mvnw clean package
@@ -88,14 +88,14 @@ jobs:
 
       # MS-emergency-management
       - name: Build and Test MSEM
-        if: ${{ check-changes.steps.check_msem.outputs.changed == 'true' }}
+        if: ${{ steps.check_msem.outputs.changed == 'true' }}
         working-directory: ./ms-emergency-management
         run: |
           ./mvnw clean package
           ./mvnw test
 
       - name: Build and Test MSED
-        if: ${{ check-changes.steps.check_msed.outputs.changed == 'true' }}
+        if: ${{ steps.check_msed.outputs.changed == 'true' }}
         working-directory: ./ms-emergency-dispatcher
         run: |
           ./mvnw clean package
@@ -140,7 +140,7 @@ jobs:
     needs: check_changes, tests
     steps:
       - name: Publish Docker Image MSMH
-        if: ${{ check_changes.steps.check_mshm.outputs.changed == 'true' }}
+        if: ${{ steps.check_mshm.outputs.changed == 'true' }}
         working-directory: ./ms-hospital-management
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -151,7 +151,7 @@ jobs:
           docker push yvalero/ms-hospital-management:latest
 
       - name: Publish Docker Image MSEH
-        if: ${{ check_changes.steps.check_msem.outputs.changed == 'true' }}
+        if: ${{ steps.check_msem.outputs.changed == 'true' }}
         working-directory: ./ms-emergency-management
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -162,7 +162,7 @@ jobs:
           docker push yvalero/ms-emergency-management:latest
 
       - name: Publish Docker Image MSED
-        if: ${{ check_changes.steps.check_msed.outputs.changed == 'true' }}
+        if: ${{ steps.check_msed.outputs.changed == 'true' }}
         working-directory: ./ms-emergency-dispatcher
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
