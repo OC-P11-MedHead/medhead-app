@@ -110,7 +110,7 @@ jobs:
         run: echo ${{ github.workspace }}/${{ env.GITHUB_REPOSITORY }}
 
       - name: Start MS-hospital-management
-        working-directory: /ms-hospital-management
+        working-directory: /home/runner/work/medhead-app/ms-hospital-management
         run: |
           mvnw clean install
           mvnw spring-boot:run &
@@ -120,28 +120,28 @@ jobs:
 
 
       - name: Start MS-emergency-management
-        working-directory: ms-emergency-management
+        working-directory: /home/runner/work/medhead-app/ms-emergency-management
         run: mvnw spring-boot:run &
 
       - name: Wait for Micro-Services to Start
         run: sleep 30
 
       - name: Start MS-emergency-dispatcher
-        working-directory: ms-emergency-dispatcher
+        working-directory: /home/runner/work/medhead-app/ms-emergency-dispatcher
         run: mvnw spring-boot:run &
 
       - name: Wait for Micro-Services to Start
         run: sleep 30
 
       - name: Build Angular App
-        working-directory: medhead-front
+        working-directory: /home/runner/work/medhead-app/medhead-front
         run: npm run start & 
 
       - name: Wait for Micro-Services to Start
         run: sleep 20       
 
       - name: Run E2E Tests with Xvfb
-        working-directory: medhead-front/e2e
+        working-directory: /home/runner/work/medhead-app/medhead-front/e2e
         run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" node bookBed.js           
 
   publish:
