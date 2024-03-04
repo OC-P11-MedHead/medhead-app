@@ -163,7 +163,7 @@ jobs:
           fetch-depth: 0
 
       - name: Publish Docker Image MSMH
-        if: ${{ steps.check_mshm.outputs.changed == 'true' }}
+        # if: ${{ steps.check_mshm.outputs.changed == 'true' }}
         working-directory: ./ms-hospital-management
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
