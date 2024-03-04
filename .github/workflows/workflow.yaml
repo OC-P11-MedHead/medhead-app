@@ -137,7 +137,7 @@ jobs:
 
   publish:
     runs-on: ubuntu
-    needs: check_changes, tests
+    needs: check-changes, tests
     steps:
       - name: Publish Docker Image MSMH
         if: ${{ steps.check_mshm.outputs.changed == 'true' }}
