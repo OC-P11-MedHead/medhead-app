@@ -106,8 +106,11 @@ jobs:
           echo ${{ github.workspace }}
           echo ${{ github.workspace }}/ms-hospital-management
 
+      - name: debug Project Directory
+        run: echo ${{ github.workspace }}/${{ env.GITHUB_REPOSITORY }}
+
       - name: Start MS-hospital-management
-        working-directory: ms-hospital-management
+        working-directory: /ms-hospital-management
         run: |
           mvnw clean install
           mvnw spring-boot:run &
