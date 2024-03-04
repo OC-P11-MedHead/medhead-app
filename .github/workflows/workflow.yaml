@@ -166,7 +166,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-          
+
       - name: Publish Docker Image MSMH
         # if: ${{ steps.check_mshm.outputs.changed == 'true' }}
         working-directory: ./ms-hospital-management
@@ -179,7 +179,7 @@ jobs:
           docker push yvalero/ms-hospital-management:latest
 
       - name: Publish Docker Image MSEH
-        if: ${{ steps.check_msem.outputs.changed == 'true' }}
+        # if: ${{ steps.check_msem.outputs.changed == 'true' }}
         working-directory: ./ms-emergency-management
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -190,7 +190,7 @@ jobs:
           docker push yvalero/ms-emergency-management:latest
 
       - name: Publish Docker Image MSED
-        if: ${{ steps.check_msed.outputs.changed == 'true' }}
+        # if: ${{ steps.check_msed.outputs.changed == 'true' }}
         working-directory: ./ms-emergency-dispatcher
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
