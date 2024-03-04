@@ -112,8 +112,8 @@ jobs:
       - name: Start MS-hospital-management
         working-directory: /home/runner/work/medhead-app/ms-hospital-management
         run: |
-          mvnw clean install
-          mvnw spring-boot:run &
+          ./mvnw clean install
+          ./mvnw spring-boot:run &
 
       - name: Wait for Micro-Services to Start
         run: sleep 30
