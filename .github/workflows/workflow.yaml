@@ -103,8 +103,8 @@ jobs:
 
       - name: Debug Directory Contents
         run: |
-          ls -R ${{ github.workspace }}
-          ls -R ${{ github.workspace }}/ms-hospital-management
+          echo ${{ github.workspace }}
+          echo ${{ github.workspace }}/ms-hospital-management
 
       - name: Start MS-hospital-management
         working-directory: ./ms-hospital-management
