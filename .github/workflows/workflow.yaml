@@ -104,22 +104,22 @@ jobs:
       - name: Start MS-hospital-management
         working-directory: $GITHUB_WORKSPACE/ms-hospital-management
         run: |
-          ./mvnw clean install
-          ./mvnw spring-boot:run &
+          mvnw clean install
+          mvnw spring-boot:run &
 
       - name: Wait for Micro-Services to Start
         run: sleep 30
 
       - name: Start MS-emergency-management
         working-directory: $GITHUB_WORKSPACE/ms-emergency-management
-        run: ./mvnw spring-boot:run &
+        run: mvnw spring-boot:run &
 
       - name: Wait for Micro-Services to Start
         run: sleep 30
 
       - name: Start MS-emergency-dispatcher
         working-directory: $GITHUB_WORKSPACE/ms-emergency-dispatcher
-        run: ./mvnw spring-boot:run &
+        run: mvnw spring-boot:run &
 
       - name: Wait for Micro-Services to Start
         run: sleep 30
