@@ -11,7 +11,7 @@ COPY pom.xml .
 # Copier tous les fichiers source
 COPY src ./src
 
-RUN ["mvnw", "package", "-DskipTests"]
+RUN ["./mvnw", "package", "-DskipTests"]
 
 EXPOSE 9000
 
