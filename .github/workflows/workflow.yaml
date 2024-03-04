@@ -39,138 +39,138 @@ jobs:
   check-changes:  
     runs-on: ubuntu-latest
     needs: project-build
-      steps:
-      # MS-hospital-management
-        - name: Check for changes in ms-hospital-management
-          id: check_mshm
-          run: |
-            if [[ -n $(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ms-hospital-management/) ]]; then
-              echo "Changes detected in mshm."
-              echo "::set-output name=changed::true"
-            else
-              echo "No changes detected in mshm."
-              echo "::set-output name=changed::false"
-            fi
+    steps:
+    # MS-hospital-management
+      - name: Check for changes in ms-hospital-management
+        id: check_mshm
+        run: |
+          if [[ -n $(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ms-hospital-management/) ]]; then
+            echo "Changes detected in mshm."
+            echo "::set-output name=changed::true"
+          else
+            echo "No changes detected in mshm."
+            echo "::set-output name=changed::false"
+          fi
 
-        - name: Check for changes in ms-emergency-management
-          id: check_msem
-          run: |
-            if [[ -n $(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ms-emergency-management/) ]]; then
-              echo "Changes detected in msem."
-              echo "::set-output name=changed::true"
-            else
-              echo "No changes detected in msem."
-              echo "::set-output name=changed::false"
-            fi
+      - name: Check for changes in ms-emergency-management
+        id: check_msem
+        run: |
+          if [[ -n $(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ms-emergency-management/) ]]; then
+            echo "Changes detected in msem."
+            echo "::set-output name=changed::true"
+          else
+            echo "No changes detected in msem."
+            echo "::set-output name=changed::false"
+          fi
 
-        # MS-emergency-dispatcher
-        - name: Check for changes in ms-emergency-dispatcher
-          id: check_msed
-          run: |
-            if [[ -n $(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ms-emergency-disptacher/) ]]; then
-              echo "Changes detected in msed."
-              echo "::set-output name=changed::true"
-            else
-              echo "No changes detected in msed."
-              echo "::set-output name=changed::false"
-            fi
+      # MS-emergency-dispatcher
+      - name: Check for changes in ms-emergency-dispatcher
+        id: check_msed
+        run: |
+          if [[ -n $(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ms-emergency-disptacher/) ]]; then
+            echo "Changes detected in msed."
+            echo "::set-output name=changed::true"
+          else
+            echo "No changes detected in msed."
+            echo "::set-output name=changed::false"
+          fi
 
   tests:
     runs-on: ubuntu-latest
     needs: check-changes  
-      steps:
-        - name: Build and Test MSHM
-          if: ${{ check-changes.steps.check_mshm.outputs.changed == 'true' }}
-          working-directory: ./ms-hospital-management
-          run: |
-            ./mvnw clean package
-            ./mvnw test
+    steps:
+      - name: Build and Test MSHM
+        if: ${{ check-changes.steps.check_mshm.outputs.changed == 'true' }}
+        working-directory: ./ms-hospital-management
+        run: |
+          ./mvnw clean package
+          ./mvnw test
 
-        # MS-emergency-management
-        - name: Build and Test MSEM
-          if: ${{ check-changes.steps.check_msem.outputs.changed == 'true' }}
-          working-directory: ./ms-emergency-management
-          run: |
-            ./mvnw clean package
-            ./mvnw test
+      # MS-emergency-management
+      - name: Build and Test MSEM
+        if: ${{ check-changes.steps.check_msem.outputs.changed == 'true' }}
+        working-directory: ./ms-emergency-management
+        run: |
+          ./mvnw clean package
+          ./mvnw test
 
-        - name: Build and Test MSED
-          if: ${{ check-changes.steps.check_msed.outputs.changed == 'true' }}
-          working-directory: ./ms-emergency-dispatcher
-          run: |
-            ./mvnw clean package
-            ./mvnw test 
+      - name: Build and Test MSED
+        if: ${{ check-changes.steps.check_msed.outputs.changed == 'true' }}
+        working-directory: ./ms-emergency-dispatcher
+        run: |
+          ./mvnw clean package
+          ./mvnw test 
 
-        - name: Start MS-hospital-management
-          working-directory: ./ms-hospital-management
-          run: |
-            ./mvnw clean install
-            ./mvnw spring-boot:run &
+      - name: Start MS-hospital-management
+        working-directory: ./ms-hospital-management
+        run: |
+          ./mvnw clean install
+          ./mvnw spring-boot:run &
 
-        - name: Wait for Micro-Services to Start
-          run: sleep 30
+      - name: Wait for Micro-Services to Start
+        run: sleep 30
 
-        - name: Start MS-emergency-management
-          working-directory: ./ms-emergency-management
-          run: ./mvnw spring-boot:run &
+      - name: Start MS-emergency-management
+        working-directory: ./ms-emergency-management
+        run: ./mvnw spring-boot:run &
 
-        - name: Wait for Micro-Services to Start
-          run: sleep 30
+      - name: Wait for Micro-Services to Start
+        run: sleep 30
 
-        - name: Start MS-emergency-dispatcher
-          working-directory: ./ms-emergency-dispatcher
-          run: ./mvnw spring-boot:run &
+      - name: Start MS-emergency-dispatcher
+        working-directory: ./ms-emergency-dispatcher
+        run: ./mvnw spring-boot:run &
 
-        - name: Wait for Micro-Services to Start
-          run: sleep 30
+      - name: Wait for Micro-Services to Start
+        run: sleep 30
 
-        - name: Build Angular App
-          working-directory: ./medhead-front
-          run: npm run start & 
+      - name: Build Angular App
+        working-directory: ./medhead-front
+        run: npm run start & 
 
-        - name: Wait for Micro-Services to Start
-          run: sleep 20       
+      - name: Wait for Micro-Services to Start
+        run: sleep 20       
 
-        - name: Run E2E Tests with Xvfb
-          working-directory: ./medhead-front/e2e
-          run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" node bookBed.js           
+      - name: Run E2E Tests with Xvfb
+        working-directory: ./medhead-front/e2e
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" node bookBed.js           
 
   publish:
     runs-on: ubuntu
     needs: check_changes, tests
-      steps:
-        - name: Publish Docker Image MSMH
-          if: ${{ check_changes.steps.check_mshm.outputs.changed == 'true' }}
-          working-directory: ./ms-hospital-management
-          env:
-            DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-            DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-          run: |
-            docker build -t yvalero/ms-hospital-management:latest .
-            docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
-            docker push yvalero/ms-hospital-management:latest
+    steps:
+      - name: Publish Docker Image MSMH
+        if: ${{ check_changes.steps.check_mshm.outputs.changed == 'true' }}
+        working-directory: ./ms-hospital-management
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          docker build -t yvalero/ms-hospital-management:latest .
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
+          docker push yvalero/ms-hospital-management:latest
 
-        - name: Publish Docker Image MSEH
-          if: ${{ check_changes.steps.check_msem.outputs.changed == 'true' }}
-          working-directory: ./ms-emergency-management
-          env:
-            DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-            DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-          run: |
-            docker build -t yvalero/ms-emergency-management:latest .
-            docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
-            docker push yvalero/ms-emergency-management:latest
+      - name: Publish Docker Image MSEH
+        if: ${{ check_changes.steps.check_msem.outputs.changed == 'true' }}
+        working-directory: ./ms-emergency-management
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          docker build -t yvalero/ms-emergency-management:latest .
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
+          docker push yvalero/ms-emergency-management:latest
 
-        - name: Publish Docker Image MSED
-          if: ${{ check_changes.steps.check_msed.outputs.changed == 'true' }}
-          working-directory: ./ms-emergency-dispatcher
-          env:
-            DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-            DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-          run: |
-            docker build -t yvalero/ms-emergency-dispatcher:latest .
-            docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
-            docker push yvalero/ms-emergency-dispatcher:latest
+      - name: Publish Docker Image MSED
+        if: ${{ check_changes.steps.check_msed.outputs.changed == 'true' }}
+        working-directory: ./ms-emergency-dispatcher
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          docker build -t yvalero/ms-emergency-dispatcher:latest .
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
+          docker push yvalero/ms-emergency-dispatcher:latest
 
 
 
