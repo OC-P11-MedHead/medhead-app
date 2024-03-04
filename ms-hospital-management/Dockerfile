@@ -11,6 +11,12 @@ COPY pom.xml .
 # Copier tous les fichiers source
 COPY src ./src
 
+# Copie du fichier mvnw
+COPY mvnw ./
+
+# Copie du dossier .mvn (contenant les scripts nécessaires)
+COPY .mvn ./.mvn
+
 RUN ["./mvnw", "package", "-DskipTests"]
 
 EXPOSE 9000
