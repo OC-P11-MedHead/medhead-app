@@ -101,14 +101,20 @@ jobs:
           ./mvnw clean package
           ./mvnw test 
 
+      - name: Debug Directory Contents
+        run: |
+          ls -R ${{ github.workspace }}
+          ls -R ${{ github.workspace }}/ms-hospital-management
+
       - name: Start MS-hospital-management
         working-directory: ./ms-hospital-management
         run: |
-          ./mvnw clean install
-          ./mvnw spring-boot:run &
+          mvnw clean install
+          mvnw spring-boot:run &
 
       - name: Wait for Micro-Services to Start
         run: sleep 30
+
 
       - name: Start MS-emergency-management
         working-directory: ./ms-emergency-management
