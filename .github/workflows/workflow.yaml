@@ -102,7 +102,7 @@ jobs:
           ./mvnw test 
 
       - name: Start MS-hospital-management
-        working-directory: ./ms-hospital-management
+        working-directory: ms-hospital-management
         run: |
           ./mvnw clean install
           ./mvnw spring-boot:run &
@@ -111,21 +111,21 @@ jobs:
         run: sleep 30
 
       - name: Start MS-emergency-management
-        working-directory: ./ms-emergency-management
+        working-directory: ms-emergency-management
         run: ./mvnw spring-boot:run &
 
       - name: Wait for Micro-Services to Start
         run: sleep 30
 
       - name: Start MS-emergency-dispatcher
-        working-directory: ./ms-emergency-dispatcher
+        working-directory: ms-emergency-dispatcher
         run: ./mvnw spring-boot:run &
 
       - name: Wait for Micro-Services to Start
         run: sleep 30
 
       - name: Build Angular App
-        working-directory: ./medhead-front
+        working-directory: medhead-front
         run: npm run start & 
 
       - name: Wait for Micro-Services to Start
