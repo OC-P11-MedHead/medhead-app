@@ -36,9 +36,11 @@ jobs:
           if [[ -n $(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ms-hospital-management/) ]]; then
             echo "Changes detected in mshm."
             echo "::set-output name=changed::true"
+            echo "export CHANGED_MSHM=true" >> $GITHUB_ENV
           else
             echo "No changes detected in mshm."
             echo "::set-output name=changed::false"
+            echo "export CHANGED_MSHM=false" >> $GITHUB_ENV
           fi
 
       # MS-emergency-management
@@ -48,9 +50,11 @@ jobs:
           if [[ -n $(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ms-emergency-management/) ]]; then
             echo "Changes detected in msem."
             echo "::set-output name=changed::true"
+            echo "export CHANGED_MSEM=true" >> $GITHUB_ENV
           else
             echo "No changes detected in msem."
             echo "::set-output name=changed::false"
+            echo "export CHANGED_MSEM=false" >> $GITHUB_ENV
           fi
 
       # MS-emergency-dispatcher
@@ -60,9 +64,11 @@ jobs:
           if [[ -n $(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ms-emergency-disptacher/) ]]; then
             echo "Changes detected in msed."
             echo "::set-output name=changed::true"
+            echo "export CHANGED_MSED=true" >> $GITHUB_ENV
           else
             echo "No changes detected in msed."
             echo "::set-output name=changed::false"
+            echo "export CHANGED_MSED=false" >> $GITHUB_ENV
           fi
 
   tests:
@@ -88,8 +94,9 @@ jobs:
         working-directory: ./medhead-front
         run: npm install
 
+      # MS-hospital-management
       - name: Build and Test MSHM
-        if: ${{ steps.check_mshm.outputs.changed == 'true' }}
+        if: ${{ env.CHANGED_MSHM == 'true' }}
         working-directory: ./ms-hospital-management
         run: |
           ./mvnw clean package
@@ -97,27 +104,19 @@ jobs:
 
       # MS-emergency-management
       - name: Build and Test MSEM
-        if: ${{ steps.check_msem.outputs.changed == 'true' }}
+        if: ${{ env.CHANGED_MSEM == 'true' }}
         working-directory: ./ms-emergency-management
         run: |
           ./mvnw clean package
           ./mvnw test
 
+      # MS-emergency-dispatcher
       - name: Build and Test MSED
-        if: ${{ steps.check_msed.outputs.changed == 'true' }}
+        if: ${{ env.CHANGED_MSED == 'true' }}
         working-directory: ./ms-emergency-dispatcher
         run: |
           ./mvnw clean package
           ./mvnw test 
-
-      - name: Debug Directory Contents
-        run: |
-          echo ${{ github.workspace }}
-          echo ${{ github.workspace }}/ms-hospital-management
-          echo ${{ env.GITHUB_REPOSITORY }}
-
-      - name: debug Project Directory
-        run: echo ${{ github.workspace }}/${{ env.GITHUB_REPOSITORY }}
 
       - name: Start MS-hospital-management
         working-directory: ./ms-hospital-management
@@ -125,29 +124,29 @@ jobs:
           ./mvnw clean install
           ./mvnw spring-boot:run &
 
-      - name: Wait for Micro-Services to Start
-        run: sleep 15
+      # - name: Wait for Micro-Services to Start
+      #   run: sleep 15
 
       - name: Start MS-emergency-management
         working-directory: ./ms-emergency-management
         run: ./mvnw spring-boot:run &
 
-      - name: Wait for Micro-Services to Start
-        run: sleep 15
+      # - name: Wait for Micro-Services to Start
+      #   run: sleep 15
 
       - name: Start MS-emergency-dispatcher
         working-directory: ./ms-emergency-dispatcher
         run: ./mvnw spring-boot:run &
 
-      - name: Wait for Micro-Services to Start
-        run: sleep 15
+      # - name: Wait for Micro-Services to Start
+      #   run: sleep 15
 
       - name: Build Angular App
         working-directory: ./medhead-front
         run: npm run start & 
 
-      - name: Wait for Micro-Services to Start
-        run: sleep 5       
+      # - name: Wait for Micro-Services to Start
+      #   run: sleep 5       
 
       - name: Run E2E Tests with Xvfb
         working-directory: ./medhead-front/e2e
@@ -168,7 +167,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Publish Docker Image MSMH
-        if: ${{ steps.check_mshm.outputs.changed == 'true' }}
+        if: ${{ env.CHANGED_MSHM == 'true' }}
         working-directory: ./ms-hospital-management
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -178,8 +177,9 @@ jobs:
           docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
           docker push yvalero/ms-hospital-management:latest
 
-      - name: Publish Docker Image MSEH
-        if: ${{ steps.check_msem.outputs.changed == 'true' }}
+      - name: Publish Docker Image MSEM
+        # if: ${{ steps.check_msem.outputs.changed == 'true' }}
+        if: ${{ env.CHANGED_MSEM == 'true' }}
         working-directory: ./ms-emergency-management
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -190,7 +190,8 @@ jobs:
           docker push yvalero/ms-emergency-management:latest
 
       - name: Publish Docker Image MSED
-        if: ${{ steps.check_msed.outputs.changed == 'true' }}
+        # if: ${{ steps.check_msed.outputs.changed == 'true' }}
+        if: ${{ env.CHANGED_MSED == 'true' }}
         working-directory: ./ms-emergency-dispatcher
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
