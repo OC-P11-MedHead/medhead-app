@@ -132,10 +132,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     needs: tests
-    env:
-      CHANGED_MSHM: ${{ needs.check-changes.outputs.CHANGED_MSHM }}
-      CHANGED_MSEM: ${{ needs.check-changes.outputs.CHANGED_MSHM }}
-      CHANGED_MSED: ${{ needs.check-changes.outputs.CHANGED_MSHM }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -148,6 +144,8 @@ jobs:
           distribution: 'adopt'
 
       - name: Publish Docker Image MSMH
+        env: 
+          CHANGED_MSHM: ${{ needs.check-changes.outputs.CHANGED_MSHM }}
         if: ${{ env.CHANGED_MSHM == 'true' }}
         working-directory: ./ms-hospital-management
         env:
@@ -159,6 +157,9 @@ jobs:
           docker push yvalero/ms-hospital-management:latest
 
       - name: Publish Docker Image MSEM
+        env:
+          CHANGED_MSEM: ${{ needs.check-changes.outputs.CHANGED_MSEM }}
+
         if: ${{ env.CHANGED_MSEM == 'true' }}
         working-directory: ./ms-emergency-management
         env:
@@ -170,6 +171,9 @@ jobs:
           docker push yvalero/ms-emergency-management:latest
 
       - name: Publish Docker Image MSED
+        env:
+          CHANGED_MSED: ${{ needs.check-changes.outputs.CHANGED_MSED }}
+
         if: ${{ env.CHANGED_MSED == 'true' }}
         working-directory: ./ms-emergency-dispatcher
         env:
