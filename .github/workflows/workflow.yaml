@@ -70,7 +70,7 @@ jobs:
             echo "No changes detected in msed."
             echo "::set-output name=changed::false"
             echo "CHANGED_MSED=false" >> $GITHUB_ENV
-
+          fi
   tests:
     runs-on: ubuntu-latest
     needs: check-changes
