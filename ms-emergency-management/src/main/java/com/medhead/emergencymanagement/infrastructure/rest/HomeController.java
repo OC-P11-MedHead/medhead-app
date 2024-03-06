@@ -16,9 +16,6 @@ public class HomeController {
     @Autowired
     private EmergencyService emergencyService;
 
-    /**
-    * Retourne la liste des urgences en cours
-    */
     @GetMapping("/emergencies")
     public Iterable<Emergency> getEmergencies() {
         return this.emergencyService.getEmergencies();

@@ -85,7 +85,6 @@ jobs:
 
       # MS-hospital-management
       - name: Build and Test MSHM
-        if: ${{ env.CHANGED_MSHM == true }}
         working-directory: ./ms-hospital-management
         run: |
           ./mvnw clean package
@@ -93,7 +92,6 @@ jobs:
 
       # MS-emergency-management
       - name: Build and Test MSEM
-        if: ${{ env.CHANGED_MSEM == true }}
         working-directory: ./ms-emergency-management
         run: |
           ./mvnw clean package
@@ -101,7 +99,6 @@ jobs:
 
       # MS-emergency-dispatcher
       - name: Build and Test MSED
-        if: ${{ env.CHANGED_MSED == true }}
         working-directory: ./ms-emergency-dispatcher
         run: |
           ./mvnw clean package

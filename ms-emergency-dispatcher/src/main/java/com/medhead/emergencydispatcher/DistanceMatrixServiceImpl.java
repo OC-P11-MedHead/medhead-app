@@ -55,7 +55,6 @@ public class DistanceMatrixServiceImpl {
             }
         }
         // Implémentez la logique nécessaire ici
-        // etablissementLePlusProche = new Etablissement();
         System.out.println(this.findShortestDurationElement(response));
         Map<String, String> responseJson = new HashMap<>();
         responseJson.put("message", "ok");
