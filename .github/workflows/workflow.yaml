@@ -128,7 +128,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    needs: tests
+    needs: [check-changes, tests]
     env:
       CHANGED_MSHM: ${{ needs.check-changes.outputs.CHANGED_MSHM }}
       CHANGED_MSEM: ${{ needs.check-changes.outputs.CHANGED_MSEM }}
