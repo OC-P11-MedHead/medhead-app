@@ -5,7 +5,7 @@ VOLUME /tmp
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /mshm
 
-# Copier le fichier pom.xml pour télécharger les dépendances Maven
+# Copier le fichier pom.xml  pour télécharger les dépendances Maven
 COPY pom.xml .
 
 # Copier tous les fichiers source
