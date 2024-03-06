@@ -3,6 +3,11 @@ on:
   push:
     branches: [ main ]
 
+env:
+  CHANGED_MSHM: false
+  CHANGED_MSEM: false
+  CHANGED_MSED: false
+
 jobs:
   project-build:
     runs-on: ubuntu-latest
@@ -33,7 +38,6 @@ jobs:
       - name: Check for changes in ms-hospital-management
         id: check_mshm
         run: |
-          echo "CHANGED_MSHM=false" >> $GITHUB_ENV 
           echo "changed_mshm avant condition : $CHANGED_MSHM"
           if [[ -n $(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ms-hospital-management/) ]]; then
             echo "Changes detected in mshm."
@@ -81,7 +85,6 @@ jobs:
       - name: test get env
         run: |
           echo "testmshm $CHANGED_MSHM"
-          echo "CHANGED_MSHM=$(echo $CHANGED_MSHM)" > changed_mshm.txt
           echo "After echo"
 
   # tests:
@@ -183,6 +186,7 @@ jobs:
       - name: Get ENV variables
         run: |
           echo "changed mshm: $CHANGED_MSHM"
+          echo "${{ env.CHANGED_MSHM}}"
           echo "changed msem: $CHANGED_MSEM"
           echo "changed msed: $CHANGED_MSED"
 
