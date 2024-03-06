@@ -191,7 +191,7 @@ jobs:
         
       - name: Get ENV variables
         run: |
-          CHANGED_MSHM=$(<"${{ needs.check-changes.outputs.outputs }}/my_variable.txt")
+          CHANGED_MSHM=$(<"${{ needs.check-changes.outputs.outputs }}")
           echo "changed mshm: $CHANGED_MSHM"
           echo "${{ env.CHANGED_MSHM}}"
           echo "changed msem: $CHANGED_MSEM"
