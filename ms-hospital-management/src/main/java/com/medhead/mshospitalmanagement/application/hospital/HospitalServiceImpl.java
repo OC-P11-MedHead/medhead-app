@@ -20,7 +20,7 @@ public class HospitalServiceImpl implements HospitalService<Iterable<HospitalJpa
 
     @Override
     public Iterable<HospitalJpa> findHospitalsBySpeciality(String uuid) {
-        // ex:  Anesthésie : 4545rez4jir
+        // ex Anesthésie : 4545rez4jir
         return this.hospitalRepository.findHospitalsBySpeciality(uuid);
     }
 
