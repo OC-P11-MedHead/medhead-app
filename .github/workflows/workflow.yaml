@@ -29,6 +29,10 @@ jobs:
   check-changes:  
     runs-on: ubuntu-latest
     needs: project-build
+    outputs:
+      # Définissez le chemin du fichier en sortie pour que le job2 puisse y accéder
+      outputs: ${{ runner.workspace }}/my_variable.txt
+
     steps:
       - uses: actions/checkout@v4
         with:
