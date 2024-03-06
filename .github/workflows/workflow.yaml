@@ -28,7 +28,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-        
+      
+      - name: test env
+        run: echo "CHANGED=true" >> $GITHUB_ENV
+
       # MS-hospital-management
       - name: Check for changes in ms-hospital-management
         id: check_mshm
@@ -38,7 +41,8 @@ jobs:
             echo "CHANGED_MSHM=yoyo" >> $GITHUB_ENV
             echo "test : ${CHANGED_MSHM}"
             echo "test : $CHANGED_MSHM"
-            echo ${{ env.CHANGED_MSHM }}
+            echo "test : $CHANGED"
+            echo "tessssst : ${{ env.CHANGED_MSHM }}"
             echo "Debug: CHANGED_MSHM=${CHANGED_MSHM}"
           else
             echo "No changes detected in mshm."
