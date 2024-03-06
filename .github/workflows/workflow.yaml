@@ -38,11 +38,15 @@ jobs:
             echo "::set-output name=changed::true"
             echo "CHANGED_MSHM=true" >> $GITHUB_ENV
             echo "test : ${CHANGED_MSHM}"
+            echo "test : $CHANGED_MSHM"
             echo ${{ env.CHANGED_MSHM }}
+            echo "Debug: CHANGED_MSHM=${CHANGED_MSHM}"
           else
             echo "No changes detected in mshm."
             echo "::set-output name=changed::false"
             echo "CHANGED_MSHM=false" >> $GITHUB_ENV
+            echo "test : ${CHANGED_MSHM}"
+            echo "test : $CHANGED_MSHM"
           fi
 
       # MS-emergency-management
@@ -180,7 +184,7 @@ jobs:
           CHANGED_MSED: ${{ env.CHANGED_MSED }}
 
       - name: Publish Docker Image MSMH
-        if: ${{ env.CHANGED_MSHM == true }}
+        if: ${{ env.CHANGED_MSHM == 'true' }}
         working-directory: ./ms-hospital-management
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -192,7 +196,7 @@ jobs:
 
       - name: Publish Docker Image MSEM
         # if: ${{ steps.check_msem.outputs.changed == 'true' }}
-        if: ${{ env.CHANGED_MSEM == true }}
+        if: ${{ env.CHANGED_MSEM == 'true' }}
         working-directory: ./ms-emergency-management
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -204,7 +208,7 @@ jobs:
 
       - name: Publish Docker Image MSED
         # if: ${{ steps.check_msed.outputs.changed == 'true' }}
-        if: ${{ env.CHANGED_MSED == true }}
+        if: ${{ env.CHANGED_MSED == 'true' }}
         working-directory: ./ms-emergency-dispatcher
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
