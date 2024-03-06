@@ -41,7 +41,7 @@ jobs:
           echo "changed_mshm avant condition : $CHANGED_MSHM"
           if [[ -n $(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ms-hospital-management/) ]]; then
             echo "Changes detected in mshm."
-            echo "CHANGED_MSHM=true" >> $GITHUB_ENV
+            echo "CHANGED_MSHM=true" > my_variable_txt
             echo "test : ${CHANGED_MSHM}"
             echo "test : $CHANGED_MSHM"
           else
@@ -51,6 +51,8 @@ jobs:
             echo "test : ${CHANGED_MSHM}"
             echo "test : $CHANGED_MSHM"
           fi
+        env:
+          CHANGED_MSHM: ${{ cat my_variable_txt }}
 
           
 
