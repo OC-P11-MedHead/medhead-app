@@ -37,6 +37,7 @@ jobs:
             echo "Changes detected in mshm."
             echo "::set-output name=changed::true"
             echo "export CHANGED_MSHM=true" >> $GITHUB_ENV
+            echo "$CHANGED_MSHM"
           else
             echo "No changes detected in mshm."
             echo "::set-output name=changed::false"
@@ -165,6 +166,16 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+
+      - name: Get ENV variables
+        run: |
+          echo "changed mshm: $CHANGED_MSHM"
+          echo "changed msem: $CHANGED_MSEM"
+          echo "changed msed: $CHANGED_MSED"
+        env:
+          CHANGED_MSHM: ${{ env.CHANGED_MSHM }}
+          CHANGED_MSEM: ${{ env.CHANGED_MSEM }}
+          CHANGED_MSED: ${{ env.CHANGED_MSED }}
 
       - name: Publish Docker Image MSMH
         if: ${{ env.CHANGED_MSHM == 'true' }}
