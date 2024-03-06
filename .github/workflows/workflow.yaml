@@ -37,7 +37,7 @@ jobs:
             echo "Changes detected in mshm."
             echo "::set-output name=changed::true"
             echo "export CHANGED_MSHM=true" >> $GITHUB_ENV
-            echo "$CHANGED_MSHM"
+            echo "test : ${CHANGED_MSHM}"
           else
             echo "No changes detected in mshm."
             echo "::set-output name=changed::false"
@@ -169,7 +169,7 @@ jobs:
 
       - name: Get ENV variables
         run: |
-          echo "changed mshm: $CHANGED_MSHM"
+          echo "changed mshm: ${CHANGED_MSHM}"
           echo "changed msem: $CHANGED_MSEM"
           echo "changed msed: $CHANGED_MSED"
         env:
