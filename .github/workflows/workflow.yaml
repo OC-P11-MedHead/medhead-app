@@ -52,7 +52,7 @@ jobs:
             echo "test : $CHANGED_MSHM"
           fi
         env:
-          CHANGED_MSHM: ${{ cat my_variable.txt }}
+          CHANGED_MSHM: ${{ runner.workspace }}/my_variable.txt
 
           
 
@@ -187,6 +187,7 @@ jobs:
 
       - name: Get ENV variables
         run: |
+          CHANGED_MSHM=$(<"$CHANGED_MSHM")
           echo "changed mshm: $CHANGED_MSHM"
           echo "${{ env.CHANGED_MSHM}}"
           echo "changed msem: $CHANGED_MSEM"
