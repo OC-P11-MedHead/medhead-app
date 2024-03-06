@@ -158,12 +158,10 @@ jobs:
       - name: Publish Docker Image MSEM
         env:
           CHANGED_MSEM: ${{ needs.check-changes.outputs.CHANGED_MSEM }}
-
-        if: ${{ env.CHANGED_MSEM == 'true' }}
-        working-directory: ./ms-emergency-management
-        env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        if: ${{ env.CHANGED_MSEM == 'true' }}
+        working-directory: ./ms-emergency-management
         run: |
           docker build -t yvalero/ms-emergency-management:latest .
           docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
@@ -172,12 +170,10 @@ jobs:
       - name: Publish Docker Image MSED
         env:
           CHANGED_MSED: ${{ needs.check-changes.outputs.CHANGED_MSED }}
-
-        if: ${{ env.CHANGED_MSED == 'true' }}
-        working-directory: ./ms-emergency-dispatcher
-        env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        if: ${{ env.CHANGED_MSED == 'true' }}
+        working-directory: ./ms-emergency-dispatcher
         run: |
           docker build -t yvalero/ms-emergency-dispatcher:latest .
           docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
