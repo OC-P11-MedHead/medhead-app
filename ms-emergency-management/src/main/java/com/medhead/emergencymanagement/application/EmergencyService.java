@@ -17,6 +17,11 @@ public class EmergencyService {
         return this.emergencyRepository.findAll();
     }
 
+    /**
+     * @param Emergency
+     * 
+     * @return Emergency
+     */
     public Emergency createEmergency(Emergency emergency) {
         return this.emergencyRepository.save(emergency);
     }

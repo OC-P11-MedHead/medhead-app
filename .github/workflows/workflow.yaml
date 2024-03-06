@@ -164,10 +164,6 @@ jobs:
           docker push yvalero/ms-hospital-management:latest
 
       - name: Publish Docker Image MSEM
-        env:
-          CHANGED_MSEM: ${{ needs.check-changes.outputs.CHANGED_MSEM }}
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         if: ${{ env.CHANGED_MSEM == 'true' }}
         working-directory: ./ms-emergency-management
         run: |
@@ -176,10 +172,6 @@ jobs:
           docker push yvalero/ms-emergency-management:latest
 
       - name: Publish Docker Image MSED
-        env:
-          CHANGED_MSED: ${{ needs.check-changes.outputs.CHANGED_MSED }}
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         if: ${{ env.CHANGED_MSED == 'true' }}
         working-directory: ./ms-emergency-dispatcher
         run: |

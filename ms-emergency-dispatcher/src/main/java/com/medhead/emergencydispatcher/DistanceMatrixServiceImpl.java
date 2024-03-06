@@ -54,7 +54,6 @@ public class DistanceMatrixServiceImpl {
                 }
             }
         }
-        // Implémentez la logique nécessaire ici
         System.out.println(this.findShortestDurationElement(response));
         Map<String, String> responseJson = new HashMap<>();
         responseJson.put("message", "ok");
