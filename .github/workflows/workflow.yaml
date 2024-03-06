@@ -144,13 +144,12 @@ jobs:
           distribution: 'adopt'
 
       - name: Publish Docker Image MSMH
-        env: 
-          CHANGED_MSHM: ${{ needs.check-changes.outputs.CHANGED_MSHM }}
-        if: ${{ env.CHANGED_MSHM == 'true' }}
-        working-directory: ./ms-hospital-management
         env:
+          CHANGED_MSHM: ${{ needs.check-changes.outputs.CHANGED_MSHM }}
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        if: ${{ env.CHANGED_MSHM == 'true' }}
+        working-directory: ./ms-hospital-management
         run: |
           docker build -t yvalero/ms-hospital-management:latest .
           docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
