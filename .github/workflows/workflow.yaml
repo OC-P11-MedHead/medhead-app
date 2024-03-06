@@ -29,21 +29,16 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: test env
-        run: echo "CHANGED=true" >> $GITHUB_ENV
-
       # MS-hospital-management
       - name: Check for changes in ms-hospital-management
         id: check_mshm
         run: |
+          echo "CHANGED_MSHM=false" >> $GITHUB_ENV 
           if [[ -n $(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ms-hospital-management/) ]]; then
             echo "Changes detected in mshm."
-            echo "CHANGED_MSHM=yoyo" >> $GITHUB_ENV
+            echo "CHANGED_MSHM=true" >> $GITHUB_ENV
             echo "test : ${CHANGED_MSHM}"
             echo "test : $CHANGED_MSHM"
-            echo "test : $CHANGED"
-            echo "tessssst : ${{ env.CHANGED_MSHM }}"
-            echo "Debug: CHANGED_MSHM=${CHANGED_MSHM}"
           else
             echo "No changes detected in mshm."
             echo "::set-output name=changed::false"
