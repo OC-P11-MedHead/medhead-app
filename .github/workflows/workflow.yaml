@@ -65,93 +65,93 @@ jobs:
             echo "::set-output name=changed::false"
           fi
 
-  # tests:
-  #   runs-on: ubuntu-latest
-  #   needs: check-changes
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0
+  tests:
+    runs-on: ubuntu-latest
+    needs: check-changes
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-  #     - name: Set up JDK 17
-  #       uses: actions/setup-java@v3
-  #       with:
-  #         java-version: '17'
-  #         distribution: 'adopt'
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
 
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: 20
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-  #     - name: Install dependencies for medhead-front
-  #       working-directory: ./medhead-front
-  #       run: npm install
+      - name: Install dependencies for medhead-front
+        working-directory: ./medhead-front
+        run: npm install
 
-  #     - name: Build and Test MSHM
-  #       if: ${{ steps.check_mshm.outputs.changed == 'true' }}
-  #       working-directory: ./ms-hospital-management
-  #       run: |
-  #         ./mvnw clean package
-  #         ./mvnw test
+      - name: Build and Test MSHM
+        if: ${{ steps.check_mshm.outputs.changed == 'true' }}
+        working-directory: ./ms-hospital-management
+        run: |
+          ./mvnw clean package
+          ./mvnw test
 
-  #     # MS-emergency-management
-  #     - name: Build and Test MSEM
-  #       if: ${{ steps.check_msem.outputs.changed == 'true' }}
-  #       working-directory: ./ms-emergency-management
-  #       run: |
-  #         ./mvnw clean package
-  #         ./mvnw test
+      # MS-emergency-management
+      - name: Build and Test MSEM
+        if: ${{ steps.check_msem.outputs.changed == 'true' }}
+        working-directory: ./ms-emergency-management
+        run: |
+          ./mvnw clean package
+          ./mvnw test
 
-  #     - name: Build and Test MSED
-  #       if: ${{ steps.check_msed.outputs.changed == 'true' }}
-  #       working-directory: ./ms-emergency-dispatcher
-  #       run: |
-  #         ./mvnw clean package
-  #         ./mvnw test 
+      - name: Build and Test MSED
+        if: ${{ steps.check_msed.outputs.changed == 'true' }}
+        working-directory: ./ms-emergency-dispatcher
+        run: |
+          ./mvnw clean package
+          ./mvnw test 
 
-  #     - name: Debug Directory Contents
-  #       run: |
-  #         echo ${{ github.workspace }}
-  #         echo ${{ github.workspace }}/ms-hospital-management
-  #         echo ${{ env.GITHUB_REPOSITORY }}
+      - name: Debug Directory Contents
+        run: |
+          echo ${{ github.workspace }}
+          echo ${{ github.workspace }}/ms-hospital-management
+          echo ${{ env.GITHUB_REPOSITORY }}
 
-  #     - name: debug Project Directory
-  #       run: echo ${{ github.workspace }}/${{ env.GITHUB_REPOSITORY }}
+      - name: debug Project Directory
+        run: echo ${{ github.workspace }}/${{ env.GITHUB_REPOSITORY }}
 
-  #     - name: Start MS-hospital-management
-  #       working-directory: ./ms-hospital-management
-  #       run: |
-  #         ./mvnw clean install
-  #         ./mvnw spring-boot:run &
+      - name: Start MS-hospital-management
+        working-directory: ./ms-hospital-management
+        run: |
+          ./mvnw clean install
+          ./mvnw spring-boot:run &
 
-  #     - name: Wait for Micro-Services to Start
-  #       run: sleep 15
+      - name: Wait for Micro-Services to Start
+        run: sleep 15
 
-  #     - name: Start MS-emergency-management
-  #       working-directory: ./ms-emergency-management
-  #       run: ./mvnw spring-boot:run &
+      - name: Start MS-emergency-management
+        working-directory: ./ms-emergency-management
+        run: ./mvnw spring-boot:run &
 
-  #     - name: Wait for Micro-Services to Start
-  #       run: sleep 15
+      - name: Wait for Micro-Services to Start
+        run: sleep 15
 
-  #     - name: Start MS-emergency-dispatcher
-  #       working-directory: ./ms-emergency-dispatcher
-  #       run: ./mvnw spring-boot:run &
+      - name: Start MS-emergency-dispatcher
+        working-directory: ./ms-emergency-dispatcher
+        run: ./mvnw spring-boot:run &
 
-  #     - name: Wait for Micro-Services to Start
-  #       run: sleep 15
+      - name: Wait for Micro-Services to Start
+        run: sleep 15
 
-  #     - name: Build Angular App
-  #       working-directory: ./medhead-front
-  #       run: npm run start & 
+      - name: Build Angular App
+        working-directory: ./medhead-front
+        run: npm run start & 
 
-  #     - name: Wait for Micro-Services to Start
-  #       run: sleep 5       
+      - name: Wait for Micro-Services to Start
+        run: sleep 5       
 
-  #     - name: Run E2E Tests with Xvfb
-  #       working-directory: ./medhead-front/e2e
-  #       run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" node bookBed.js           
+      - name: Run E2E Tests with Xvfb
+        working-directory: ./medhead-front/e2e
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" node bookBed.js           
 
   publish:
     runs-on: ubuntu-latest
