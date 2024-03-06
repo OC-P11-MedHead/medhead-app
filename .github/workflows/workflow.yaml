@@ -147,7 +147,7 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      - name: test Env Var
+      - name: test Env Vars
         run: |
           echo "changed mshm ${{ needs.check-changes.outputs.CHANGED_MSHM }}"
           echo "changed mshm $CHANGED_MSHM"
@@ -156,8 +156,6 @@ jobs:
           echo "changed msed ${{ needs.check-changes.outputs.CHANGED_MSED }}"
 
       - name: Publish Docker Image MSMH
-        env:
-
         if: ${{ env.CHANGED_MSHM == 'true' }}
         working-directory: ./ms-hospital-management
         run: |
