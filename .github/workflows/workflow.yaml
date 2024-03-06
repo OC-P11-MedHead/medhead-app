@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
+        
       # MS-hospital-management
       - name: Check for changes in ms-hospital-management
         id: check_mshm
@@ -70,7 +70,6 @@ jobs:
             echo "No changes detected in msed."
             echo "::set-output name=changed::false"
             echo "CHANGED_MSED=false" >> $GITHUB_ENV
-          fi
 
   tests:
     runs-on: ubuntu-latest
@@ -97,7 +96,7 @@ jobs:
 
       # MS-hospital-management
       - name: Build and Test MSHM
-        if: ${{ env.CHANGED_MSHM == 'true' }}
+        if: ${{ env.CHANGED_MSHM == true }}
         working-directory: ./ms-hospital-management
         run: |
           ./mvnw clean package
@@ -105,7 +104,7 @@ jobs:
 
       # MS-emergency-management
       - name: Build and Test MSEM
-        if: ${{ env.CHANGED_MSEM == 'true' }}
+        if: ${{ env.CHANGED_MSEM == true }}
         working-directory: ./ms-emergency-management
         run: |
           ./mvnw clean package
@@ -113,7 +112,7 @@ jobs:
 
       # MS-emergency-dispatcher
       - name: Build and Test MSED
-        if: ${{ env.CHANGED_MSED == 'true' }}
+        if: ${{ env.CHANGED_MSED == true }}
         working-directory: ./ms-emergency-dispatcher
         run: |
           ./mvnw clean package
@@ -178,7 +177,7 @@ jobs:
           CHANGED_MSED: ${{ env.CHANGED_MSED }}
 
       - name: Publish Docker Image MSMH
-        if: ${{ env.CHANGED_MSHM == 'true' }}
+        if: ${{ env.CHANGED_MSHM == true }}
         working-directory: ./ms-hospital-management
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -190,7 +189,7 @@ jobs:
 
       - name: Publish Docker Image MSEM
         # if: ${{ steps.check_msem.outputs.changed == 'true' }}
-        if: ${{ env.CHANGED_MSEM == 'true' }}
+        if: ${{ env.CHANGED_MSEM == true }}
         working-directory: ./ms-emergency-management
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -202,7 +201,7 @@ jobs:
 
       - name: Publish Docker Image MSED
         # if: ${{ steps.check_msed.outputs.changed == 'true' }}
-        if: ${{ env.CHANGED_MSED == 'true' }}
+        if: ${{ env.CHANGED_MSED == true }}
         working-directory: ./ms-emergency-dispatcher
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
