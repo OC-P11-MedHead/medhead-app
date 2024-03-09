@@ -21,6 +21,7 @@ jobs:
       CHANGED_MSHM: ${{ steps.check_mshm.outputs.CHANGED_MSHM }}
       CHANGED_MSEM: ${{ steps.check_msem.outputs.CHANGED_MSEM }}
       CHANGED_MSED: ${{ steps.check_msed.outputs.CHANGED_MSED }}
+      CHANGED_MF: ${{ steps.check_mf.outputs.CHANGED_MF }}
 
     steps:
       - uses: actions/checkout@v4
@@ -58,6 +59,17 @@ jobs:
             echo "CHANGED_MSED=true" >> "$GITHUB_OUTPUT"
           else
             echo "No changes detected in msed."
+          fi
+
+      # MS-medhead-front
+      - name: Check for changes in medhead-front
+        id: check_mf
+        run: |
+          if [[ -n $(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }} -- medhead-front/) ]]; then
+            echo "Changes detected in mf."
+            echo "CHANGED_MF=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No changes detected in mf."
           fi
 
   tests:
@@ -133,6 +145,7 @@ jobs:
       CHANGED_MSHM: ${{ needs.check-changes.outputs.CHANGED_MSHM }}
       CHANGED_MSEM: ${{ needs.check-changes.outputs.CHANGED_MSEM }}
       CHANGED_MSED: ${{ needs.check-changes.outputs.CHANGED_MSED }}
+      CHANGED_MF: ${{ needs.check-changes.outputs.CHANGED_MF }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -178,3 +191,11 @@ jobs:
           docker build -t yvalero/ms-emergency-dispatcher:latest .
           docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
           docker push yvalero/ms-emergency-dispatcher:latest
+
+      - name: Publish Docker Image Medhead-front
+        if: ${{ env.CHANGED_MF == 'true' }}
+        working-directory: ./medhead-front
+        run: |
+          docker build -t yvalero/medhead-front:latest .
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
+          docker push yvalero/medhead-front:latest
