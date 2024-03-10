@@ -3,7 +3,7 @@ FROM eclipse-temurin:17-jdk-alpine
 VOLUME /tmp
 
 # Définir le répertoire de travail dans le conteneur
-WORKDIR /msem
+# WORKDIR /app
 
 # Copier le fichier  pom.xml pour télécharger les dépendances Maven
 COPY pom.xml .
@@ -19,7 +19,7 @@ COPY .mvn ./.mvn
 
 COPY target/*.jar app.jar
 
-RUN ["./mvnw", "package", "-DskipTests"]
+# RUN ["./mvnw", "package", "-DskipTests"]
 
 EXPOSE 9090
 
