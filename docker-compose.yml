@@ -34,12 +34,12 @@ services:
   medhead-front:
     image: yvalero/medhead-front:latest
     ports:
-      - "80:80"
+      - "4200:80"
     networks:
       - my-network
     environment:
       - USE_DOCKER=true
-    depends_on:
-      - ms-hospital-management
-      - ms-emergency-management
-      - ms-emergency-dispatcher
+
+networks:
+  my-network:
+    driver: bridge
