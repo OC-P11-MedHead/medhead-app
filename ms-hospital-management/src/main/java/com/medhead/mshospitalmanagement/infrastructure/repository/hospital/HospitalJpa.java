@@ -11,10 +11,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+// import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Entity
+// @Builder
 @Table(name = "hospitals")
 public class HospitalJpa {
     @Id

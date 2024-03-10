@@ -1,0 +1,23 @@
+version: "3"
+services:
+  # Micro-service de management des hôpitaux / spécialités
+  ms-hospital-management:
+    image: yvalero/ms-hospital-management:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+
+  # Micro-service de management des urgences
+  ms-emergency-management:
+    image: yvalero/ms-emergency-management:latest
+
+  # Micro-service de calcul de distance 
+  ms-emergency-dispatcher:
+    image: yvalero/ms-emergency-dispatcher:latest
+
+  # Front-end
+  medhead-front:
+    image: yvalero/medhead-front:latest
+    depends_on:
+      - ms-hospital-management
+      - ms-emergency-management
+      - ms-emergency-dispatcher
