@@ -1,6 +1,6 @@
 FROM eclipse-temurin:17-jdk-alpine
 
-VOLUME /tmp
+# VOLUME /tmp
 
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /app
