@@ -19,7 +19,7 @@ public class HospitalService {
     }
 
     public HospitalApi[] getHospitals(String specialityId) {
-        return this.restTemplate.getForObject(getHospitalsBySpecialityEndpoint + "/id=" + specialityId, HospitalApi[].class);
+        return this.restTemplate.getForObject(getHospitalsBySpecialityEndpoint + "/hospitals/speciality/id=" + specialityId, HospitalApi[].class);
     }
 
 }

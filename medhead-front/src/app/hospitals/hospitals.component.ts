@@ -5,6 +5,7 @@ import { Hospital } from '../models/hospital.model';
 import { Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-hospitals',
@@ -12,12 +13,16 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./hospitals.component.css']
 })
 export class HospitalsComponent {
-
+  private apiUrl :string;
   public hospitals:any
   public displayedColumns: string[] = ['organisationName', 'emergencyBedrooms', 'specialities']
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor( public dialog: MatDialog, private httpClient : HttpClient) { }
+  constructor( public dialog: MatDialog, private httpClient : HttpClient) { 
+    this.apiUrl = environment.USE_DOCKER === true
+    ? 'http://ms-hospital-management:9000'
+    : 'http://localhost:9000';
+  }
   
   
   ngOnInit() {
@@ -29,7 +34,7 @@ export class HospitalsComponent {
   }
 
   getHospitals() {
-    return this.httpClient.get('http://localhost:9000/hospitals')
+    return this.httpClient.get(`${this.apiUrl}/hospitals`)
   }
 
   concatNameSpecialities(specialities: any[]): string {

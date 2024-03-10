@@ -76,6 +76,4 @@ public class HospitalController {
         System.out.println("erreur est survenu");
         return "une erreur est survenu";
     }
-
-
 }

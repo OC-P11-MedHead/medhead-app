@@ -17,9 +17,6 @@ public class DistanceMatrixService {
     @Value("${google.maps.api-key}")
     private String apiKey;
 
-    @Value("${ms-hospital-management-api}")
-    private String apiHospital;
-
     private HospitalService hospitalService;
 
     private final RestTemplate restTemplate;
@@ -55,16 +52,11 @@ public class DistanceMatrixService {
     }
     
     public DestinationsResponse buildDestinationsString(String speciality) {
-        // Construisez la chaîne de destinations à partir de la liste de coordonnées
-        // DistanceMatrixResponse hospitals = this.restTemplate.getForObject(apiHospital, DistanceMatrixResponse.class);
-        // par exemple, "latitude1,longitude1|latitude2,longitude2|..."
-        // List<Map<String,Object>> result = restTemplate.getForObject(apiHospital, List.class);
         HospitalApi[] hospitals = this.hospitalService.getHospitals(speciality);
         Map<Integer, Integer> idCoordinateMap = new HashMap<>();
         Integer index = 0;
         String destinations = "";
         for (HospitalApi hospital : hospitals) {
-            // destinations += hospital.getLatitude() + "," + hospital.getLongitude() + "|";
             if (hospital.getEmergencyBedrooms() > 0 ) {
                 destinations += hospital.getOrganisationName() + "|";
                 idCoordinateMap.put(index, hospital.getOrganisationId());
@@ -79,13 +71,6 @@ public class DistanceMatrixService {
         destinationsResponse.specialityId = speciality;
         
         return destinationsResponse;
-        // must return
-        // { num:1, idhospital: 4d4sd5s, adresse : }
-
-
-        // return destinations.stream()
-        //     .map(latlng -> latlng.getLatitude() + "," + latlng.getLongitude())
-        //     .collect(Collectors.joining("|"));
     }
 }
 

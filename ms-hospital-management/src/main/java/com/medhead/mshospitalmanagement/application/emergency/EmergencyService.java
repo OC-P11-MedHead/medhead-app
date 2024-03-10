@@ -1,6 +1,7 @@
 package com.medhead.mshospitalmanagement.application.emergency;
 
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -13,6 +14,9 @@ import com.medhead.mshospitalmanagement.infrastructure.repository.hospital.Hospi
 public class EmergencyService {
 
     private final RestTemplate restTemplate;
+    
+    @Value("${ms-emergency-management}")
+    private String apiUrl;
 
     public EmergencyService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -27,7 +31,6 @@ public class EmergencyService {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> request = new HttpEntity<String> (emergency.toString(), headers);
-
-            this.restTemplate.postForObject("http://localhost:9090/emergency", request, String.class);
+            this.restTemplate.postForObject(apiUrl + "/emergency", request, String.class);
     }
 }

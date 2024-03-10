@@ -21,7 +21,7 @@ export class MessageComponent implements OnInit {
             setTimeout(() => {
                 this.message = undefined;
                 this.messageType = undefined;
-            }, 5000); // Masquer le message après 5 secondes (ajustez selon vos besoins)
+            }, 5000); // Masque le message après X ms
         })
     }
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ public class DistanceMatrixServiceImpl {
     private final DistanceMatrixService distanceMatrixService;
 
     private final RestTemplate restTemplate;
+
+    @Value("${ms-hospital-management-api}")
+    private String apiUrl;
 
     public DistanceMatrixServiceImpl(DistanceMatrixService distanceMatrixService, RestTemplate restTemplate) {
         this.distanceMatrixService = distanceMatrixService;
@@ -103,7 +107,7 @@ public class DistanceMatrixServiceImpl {
                 System.err.println("Aucun hôpital n'a été trouvé");
             } else {
                 System.out.println(indexProche + " ==> " + response.apiResponse.getDestinationAddresses().get(indexProche));
-                this.restTemplate.getForObject("http://localhost:9000/hospitals/id=" + idHospital + "/bookbed/speciality=" + response.specialityId, String.class);
+                this.restTemplate.getForObject(apiUrl + "/hospitals/id=" + idHospital + "/bookbed/speciality=" + response.specialityId, String.class);
                 System.out.println("requete envoye avec id hopital ==> " + idHospital);
             }
         }
