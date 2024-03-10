@@ -18,7 +18,7 @@ export class EmergencyComponent {
 
 
   constructor(private httpClient :HttpClient) {
-    this.apiUrl = environment.USE_DOCKER === true
+    this.apiUrl = environment.USE_DOCKER === 'true'
     ? 'http://ms-emergency-management:9090'
     : 'http://localhost:9090';
   }

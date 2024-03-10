@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, ObservableInput, map, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import { MessageService } from '../service/message.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-modal-declare-emergency',
@@ -29,6 +30,8 @@ import { MessageService } from '../service/message.service';
     public latitude: number;
     public longitude: number;
     public emergencyGpsCoordinate: string;
+    private msedUrl :string;
+    private mshmUrl :string;
 
     constructor(
       private formBuilder: FormBuilder,
@@ -40,6 +43,12 @@ import { MessageService } from '../service/message.service';
       this.searchControl = new FormControl();
       this.latitude = 0;
       this.longitude = 0;
+      this.msedUrl = environment.USE_DOCKER === 'true'
+      ? 'http://ms-emergency-dispatcher:8080'
+      : 'http://localhost:8080';
+      this.mshmUrl = environment.USE_DOCKER === 'true'
+      ? 'http://ms-hospital-management:9000'
+      : 'http://localhost:9000';
     }
 
     ngOnInit() {
@@ -56,7 +65,7 @@ import { MessageService } from '../service/message.service';
     } 
     
     getSpecialities() {
-      return this.httpClient.get('http://localhost:9000/specialities')
+      return this.httpClient.get(`${this.mshmUrl}/specialities`)
     }
   
     getCurrentPos() {
@@ -123,7 +132,7 @@ import { MessageService } from '../service/message.service';
                 coordinates.speciality =  this.form.get('speciality').value
                 console.log("id Speciality envoyé ==>" , this.form.get('speciality').value);
                 console.log(coordinates)
-                return  this.httpClient.post<any>(`http://localhost:8080/findNearest`, coordinates)
+                return  this.httpClient.post<any>(`${this.msedUrl}/findNearest`, coordinates)
               }),
               switchMap( (response2) => {
                 console.log("response2", response2);
@@ -138,28 +147,6 @@ import { MessageService } from '../service/message.service';
             console.error("Une erreur s'est produite : ", error.message);
             this.messageService.showMessage({message: "Une erreur s'est produite", type:"error"})
           })
-          
-        // .subscribe((response: any) => {
-        //   // Traitement de la réponse de l'API Google Geocode
-        //   const coordinates = response.results[0].geometry.location;
-        //   coordinates.speciality =  this.form.get('speciality').value
-        //   console.log("id Speciality envoyé ==>" , this.form.get('speciality').value);
-          
-        //   console.log(coordinates)
-        //   this.httpClient.post<any>(
-        //     "http://localhost:8080/findNearest",
-        //     coordinates
-        //   ).subscribe( (res) => {
-        //     console.log(res);
-        //     return this.router.navigate(['/emergencies'])
-        //   })
-        // }, (error: any) => {
-          
-        //   console.error('Une erreur s\'est produite lors de l\'appel à l\'API de géocodage : ', error);
-        //   return this.router.navigate(['/emergencies'])
-        // });
-        // this.router.navigate(['/emergencies'])
-
       }
     }
   }

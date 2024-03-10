@@ -19,7 +19,7 @@ export class HospitalsComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor( public dialog: MatDialog, private httpClient : HttpClient) { 
-    this.apiUrl = environment.USE_DOCKER === true
+    this.apiUrl = environment.USE_DOCKER === 'true'
     ? 'http://ms-hospital-management:9000'
     : 'http://localhost:9000';
   }

@@ -37,6 +37,8 @@ services:
       - "80:80"
     networks:
       - my-network
+    environment:
+      - USE_DOCKER=true
     depends_on:
       - ms-hospital-management
       - ms-emergency-management
