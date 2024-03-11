@@ -12,7 +12,6 @@ public class EmergencyService {
     @Autowired
     private EmergencyRepository emergencyRepository;
 
-    
     public Iterable<Emergency> getEmergencies() {
         return this.emergencyRepository.findAll();
     }
