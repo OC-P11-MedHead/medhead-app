@@ -32,6 +32,7 @@ import { environment } from 'src/environments/environment';
     public emergencyGpsCoordinate: string;
     private msedUrl :string;
     private mshmUrl :string;
+    private apikey_msed :string;
 
     constructor(
       private formBuilder: FormBuilder,
@@ -49,6 +50,7 @@ import { environment } from 'src/environments/environment';
       this.mshmUrl = environment.USE_DOCKER === 'true'
       ? 'http://ms-hospital-management:9000'
       : 'http://localhost:9000';
+      this.apikey_msed = environment.secure_key_msed;
     }
 
     ngOnInit() {
@@ -132,7 +134,7 @@ import { environment } from 'src/environments/environment';
                 coordinates.speciality =  this.form.get('speciality').value
                 console.log("id Speciality envoyé ==>" , this.form.get('speciality').value);
                 console.log(coordinates)
-                return  this.httpClient.post<any>(`${this.msedUrl}/findNearest`, coordinates)
+                return  this.httpClient.post<any>(`${this.msedUrl}/findNearest&apikey=${this.apikey_msed}`, coordinates)
               }),
               switchMap( (response2) => {
                 console.log("response2", response2);

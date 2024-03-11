@@ -18,6 +18,9 @@ public class DistanceMatrixServiceImpl {
 
     private final RestTemplate restTemplate;
 
+    @Value("${secure-key-msem}")
+    private String apikey;
+
     @Value("${ms-hospital-management-api}")
     private String apiUrl;
 
@@ -107,7 +110,7 @@ public class DistanceMatrixServiceImpl {
                 System.err.println("Aucun hôpital n'a été trouvé");
             } else {
                 System.out.println(indexProche + " ==> " + response.apiResponse.getDestinationAddresses().get(indexProche));
-                this.restTemplate.getForObject(apiUrl + "/hospitals/id=" + idHospital + "/bookbed/speciality=" + response.specialityId, String.class);
+                this.restTemplate.getForObject(apiUrl + "/hospitals/id=" + idHospital + "/bookbed/speciality=" + response.specialityId + "&apikey=" + apikey, String.class);
                 System.out.println("requete envoye avec id hopital ==> " + idHospital);
             }
         }

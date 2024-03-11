@@ -55,9 +55,12 @@ public class HospitalController {
         return this.hospitalService.findHospitalsBySpeciality(uuid);
     }
 
-
-    @GetMapping("/hospitals/id={id}/bookbed/speciality={speciality}")
-    public String bookBed(@PathVariable("id")final Long uuid, @PathVariable("speciality") final String specialityId) {
+    @GetMapping("/hospitals/id={id}/bookbed/speciality={speciality}&apikey={apikey}")
+    public String bookBed(
+        @PathVariable("id")final Long uuid, 
+        @PathVariable("speciality") final String specialityId,
+        @PathVariable("apikey") String apikey
+    ) {
         Optional<HospitalJpa> optionalHospital = this.hospitalService.getHospital(uuid);
         if (optionalHospital.isPresent()) {
             HospitalJpa hospital = optionalHospital.get();
@@ -65,8 +68,10 @@ public class HospitalController {
             hospital.setEmergencyBedrooms(numberOfBed - 1);
             System.out.println("hopital mis a jour");
             
+
             this.hospitalService.save(hospital);
-            this.emergencyService.publishEmergency(hospital, specialityId);
+            System.out.println("before publish " + apikey);
+            this.emergencyService.publishEmergency(hospital, specialityId, apikey);
             // Rajout de la librairie JSON 
             // TO DO A faire la requete vers ms emergency manangement
             // pour créer l'urgence 

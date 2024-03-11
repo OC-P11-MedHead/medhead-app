@@ -22,7 +22,7 @@ public class EmergencyService {
         this.restTemplate = restTemplate;
     }
 
-    public void publishEmergency(HospitalJpa hospital, String specialityId) {
+    public void publishEmergency(HospitalJpa hospital, String specialityId, String apikey) {
          JSONObject emergency = new JSONObject();
             emergency.put("hospitalUuid", hospital.getOrganisationId());
             emergency.put("hospitalName", hospital.getOrganisationName());
@@ -31,6 +31,7 @@ public class EmergencyService {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> request = new HttpEntity<String> (emergency.toString(), headers);
-            this.restTemplate.postForObject(apiUrl + "/emergency", request, String.class);
+            System.out.println(apiUrl + "/emergency/apikey=" + apikey);
+            this.restTemplate.postForObject(apiUrl + "/emergency/apikey=" + apikey, request, String.class);
     }
 }
