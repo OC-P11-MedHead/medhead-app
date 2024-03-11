@@ -37,13 +37,12 @@ Yoann VALERO
 
 La pipeline CI/CD mise en place est documentée ici : [CI/CD Documentation](https://github.com/OC-P11-MedHead/medhead-archi#cicd)
 
-## Lancement du projet
+<!-- ## Lancement du projet
 
 Le lancement est extrêmement simple : 
- - Copier le fichier `.env.example`, le renommer en `.env` et personnaliser son contenu (voir doc fourni avec)
- - Copier le fichier `docker-compose.yml` au même endroit et lancer la commande :
+ - Exécuter le fichier `docker-compose.yml` avec la commande à la racine du projet :
    
  ```shell
    docker compose up -d
-   ```
+   ``` -->
 
