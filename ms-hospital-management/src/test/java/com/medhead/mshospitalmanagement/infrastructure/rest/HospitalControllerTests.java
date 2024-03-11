@@ -49,7 +49,7 @@ public class HospitalControllerTests {
 
     @Test
     public void testBookBed() throws Exception {
-        mockMvc.perform(get("/hospitals/id=17970/bookbed/speciality=4545jhvrezr"))
+        mockMvc.perform(get("/hospitals/id=17970/bookbed/speciality=4545jhvrezr&apikey=my-securekey-msem"))
         .andExpect(status().isOk());
     }
 }
