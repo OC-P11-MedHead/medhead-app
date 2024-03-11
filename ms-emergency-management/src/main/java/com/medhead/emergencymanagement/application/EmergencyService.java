@@ -19,6 +19,7 @@ public class EmergencyService {
 
     /**
      * @param Emergency
+     * 
      * @return Emergency
      */
     public Emergency createEmergency(Emergency emergency) {
