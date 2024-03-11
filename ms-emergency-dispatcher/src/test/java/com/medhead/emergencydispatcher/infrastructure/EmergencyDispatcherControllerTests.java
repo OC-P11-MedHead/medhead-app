@@ -25,7 +25,7 @@ public class EmergencyDispatcherControllerTests {
     @Test
     public void testFindNearest() throws Exception {
         String requestBody = "{\"lat\":\"51.37\",\"lng\":\"-0.4060\",\"speciality\":\"4545jhvrezr\"}";
-        mockMvc.perform(post("/findNearest")
+        mockMvc.perform(post("/findNearest&apikey=my-securekey-msed")
             .content(requestBody)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))

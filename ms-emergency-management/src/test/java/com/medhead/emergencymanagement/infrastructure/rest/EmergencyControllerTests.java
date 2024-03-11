@@ -32,7 +32,7 @@ public class EmergencyControllerTests {
     @Test
     public void testCreateEmergency() throws Exception {
         String requestBody = "{\"hospitalUuid\":\"17970\",\"hospitalName\":\"Walton\",\"speciality\":\"4545jhvrezr\",\"origin\":\"test\"}";
-        mockMvc.perform(post("/emergency")
+        mockMvc.perform(post("/emergency/apikey=my-securekey-msem")
                 .content(requestBody)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
